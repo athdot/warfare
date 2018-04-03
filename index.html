@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <head>
 <body>
+	<img id="i1" style="visibility:hidden; position:absolute; top:0; left:0;" src="green.png" />
+	<img id="i2" style="visibility:hidden; position:absolute; top:0; left:0;" src="blue.png" />
+	<img id="i3" style="visibility:hidden; position:absolute; top:0; left:0;" src="red.png" />
+	<img id="i4" style="visibility:hidden; position:absolute; top:0; left:0;" src="purple.png" />
 <script>
 function background(color) {
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, c.width, c.height);
 }
 
+	var img1 = document.getElementById("i1");
+	var img2 = document.getElementById("i2");
+	var img3 = document.getElementById("i3");
+	var img4 = document.getElementById("i4");
+
+	img1.width = window.innerWidth;
+	img2.width = window.innerWidth;
+	img3.width = window.innerWidth;
+	img4.width = window.innerWidth;
+	img1.height = window.innerHeight;
+	img2.height = window.innerHeight;
+	img3.height = window.innerHeight;
+	img4.height = window.innerHeight;
+	
 function renderUnits() {
   var sizX = c.width / arrayWid;
   var sizY = c.height / arrayHig;
@@ -14,6 +32,17 @@ function renderUnits() {
     for (var y = 0; y < arrayHig; y++) {
       ctx.fillStyle = squareArray[x][y][0];
       ctx.fillRect(sizX * x, sizY * y, sizX, sizY);
+	    var img;
+	    if(squareArray[x][y][0] === "green"){
+		img = img1;
+	    }else if(squareArray[x][y][0] === "blue"){
+		img = img2;
+	    }else if(squareArray[x][y][0] === "red"){
+		img = img3;
+	    }else if(squareArray[x][y][0] === "purple"){
+		img = img4;
+	    }
+ctx.drawImage(img,sizX * x,sizY * y,sizX,sizY,sizX *x,sizY * y,sizX,sizY);
       ctx2.fillStyle = "rgb(0," + Math.floor(255-(pop[x][y]/30)*255) + ",0)";
       ctx2.fillRect(sizX * x, sizY * y, sizX, sizY);
     }
@@ -243,8 +272,7 @@ function randRecruit(){
 	}
   }
 }
-
-
+	
 var c = document.createElement("canvas");
 c.width = window.innerWidth;
 c.height = window.innerHeight;
