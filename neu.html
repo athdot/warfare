@@ -36,12 +36,9 @@ function background(color) {
     }else  if(color === "purple"){
       color2 = [128,0,128];
     }
-	  console.log(color2);
     var color3 = color2[0] + color2[1] + color2[2];
-	  console.log(color3);
     var color4 = color3/(255*3);
-	  console.log(color4);
-    return color4;
+    return Math.floor(color4*255);
   }
   
 function renderUnits() {
