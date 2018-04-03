@@ -168,7 +168,7 @@ function executeOrder(order) {
       } else if (ss < arrayWid - 1 && order[3] == 2) {
         ss++;
         squareArray[ss][sss][1] = t1;
-        squareArray[ss][sss][0] = squareArray[ss + 1][sss][0];
+        squareArray[ss][sss][0] = squareArray[ss - 1][sss][0];
       } else if (sss > 0 && order[3] == 3) {
         sss--;
         squareArray[ss][sss][1] = t1;
