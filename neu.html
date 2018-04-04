@@ -10,12 +10,10 @@ function background(color) {
   ctx.fillStyle = color;
   ctx.fillRect(0, 0, c.width, c.height);
 }
-
 	var img1 = document.getElementById("i1");
 	var img2 = document.getElementById("i2");
 	var img3 = document.getElementById("i3");
 	var img4 = document.getElementById("i4");
-
 	img1.width = window.innerWidth;
 	img2.width = window.innerWidth;
 	img3.width = window.innerWidth;
@@ -56,7 +54,7 @@ function renderUnits() {
 		img = img2;
 	    }else if(squareArray[x][y][0] === "red"){
 		img = img3;
-	    }else{
+	    }else if(squareArray[x][y][0] === "purple"){
 		img = img4;
 	    }
 //ctx.drawImage(img,sizX * x,sizY * y,sizX,sizY,sizX *x,sizY * y,sizX,sizY);
@@ -65,7 +63,6 @@ function renderUnits() {
     }
   }
 }
-
 function randTeam() {
   var s = random(0, 3);
   if (s == 0) {
@@ -78,11 +75,9 @@ function randTeam() {
     return "purple";
   }
 }
-
 function random(min, max) {
   return Math.round(Math.random() * (max - min)) + min;
 }
-
 var arrayWid = prompt("arrayWidth");
 var arrayHig = prompt("arrayHeight");
 arrayWid = parseInt(arrayWid);
@@ -93,15 +88,11 @@ for (var j = 0; j < arrayWid; j++) {
   temp = [];
   for (var i = 0; i < arrayHig; i++) {
     var cc = randTeam();
-    var arr = ["green", 0];
+    var arr = [cc, 10];
     temp[i] = arr;
   }
   squareArray[j] = temp;
-}	
-squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["blue",10];	
-squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["purple",10];	
-squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["red",10];	
-
+}
 function attackOrder() {
   var arr = [1, 2, 3, 4];
   var tempN = [0, 0, 0, 0];
@@ -116,7 +107,6 @@ function attackOrder() {
   }
   return tempN;
 }
-
 function makeOrders(color) {
   if (color === "green") {
     p1AD = [];
@@ -148,12 +138,10 @@ function makeOrders(color) {
             random(1, 4)
           ];
         }
-
       }
     }
   }
 }
-
 function randWinner(p1Troops, p2Troops) {
   while (p1Troops > 0 && p2Troops > 0) {
     var win1 = randBool();
@@ -166,12 +154,10 @@ function randWinner(p1Troops, p2Troops) {
   return [p1Troops, p2Troops];
 }
 //P1 is attacker
-
 function randBool() {
   var s = random(0, 1);
   return (s == 0);
 }
-
 function executeOrder(order) {
   //order= x,y,troops,direction
   var t1 = squareArray[order[0]][order[1]][1];
@@ -205,7 +191,6 @@ function executeOrder(order) {
     ss--;
     place = squareArray[ss][sss][0];
   }
-
     var bat = randWinner(t1, t2);
     t1 = bat[0];
     t2 = bat[1];
@@ -229,31 +214,26 @@ function executeOrder(order) {
       }
     }
 }
-
 function o1() {
   for (var i = 0; i < p1AD.length; i++) {
     executeOrder(p1AD[i]);
   }
 }
-
 function o2() {
   for (var i = 0; i < p2AD.length; i++) {
     executeOrder(p2AD[i]);
   }
 }
-
 function o3() {
   for (var i = 0; i < p3AD.length; i++) {
     executeOrder(p3AD[i]);
   }
 }
-
 function o4() {
   for (var i = 0; i < p4AD.length; i++) {
     executeOrder(p4AD[i]);
   }
 }
-
 function executeOrders(orders) {
   for (var i = 0; i < 4; i++) {
     if (orders[i] == 1) {
@@ -267,7 +247,6 @@ function executeOrders(orders) {
     }
   }
 }
-
 //Population tables
 var pop = [];
 var tempPop = [];
@@ -278,18 +257,15 @@ for(var x = 0; x < arrayWid; x++){
   }
   pop[x] = tempPop;
 }
-
 function randRecruit(){
 	//Recruit based on population tables (Above)
   if(random(1,30) == 1){
 	for(var x = 0; x < arrayWid; x++){
   	for(var y = 0; y < arrayHig; y++){
-		if(squareArray[x][y][1] != "green"){
   		var population = pop[x][y];
       var recruited = random(0,population);
       squareArray[x][y][1] += recruited;
       pop[x][y] -= recruited;
-		}
   	}
 	}
   }
@@ -301,7 +277,6 @@ c.height = window.innerHeight;
 c.id = "canvas";
 c.style = "position:absolute; top: 0; left: 0;";
 document.body.appendChild(c);
-
 var c2 = document.createElement("canvas");
 c2.width = window.innerWidth;
 c2.height = window.innerHeight;
@@ -312,25 +287,20 @@ var ctx2 = c2.getContext("2d");
 var ctx = c.getContext("2d");
 background("black");
 renderUnits();
-
 var p1AD = [];
 var p2AD = [];
 var p3AD = [];
 var p4AD = [];
 var teams = ["green", "blue", "purple", "red"];
 var eliminated = [false, false, false, false];
-var lel = setInterval(function() {
+setInterval(function() {
 	randRecruit();
+  makeOrders("green");
   makeOrders("blue");
   makeOrders("purple");
   makeOrders("red");
   var ord = attackOrder();
-  	try{
-		executeOrders(ord);
-	}catch(e){
-		alert(e);
-		clearInterval(lel);
-	}
+  executeOrders(ord);
   renderUnits();
 }, 1);
 </script>
