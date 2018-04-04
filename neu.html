@@ -56,7 +56,7 @@ function renderUnits() {
 		img = img2;
 	    }else if(squareArray[x][y][0] === "red"){
 		img = img3;
-	    }else if(squareArray[x][y][0] === "purple"){
+	    }else{
 		img = img4;
 	    }
 //ctx.drawImage(img,sizX * x,sizY * y,sizX,sizY,sizX *x,sizY * y,sizX,sizY);
@@ -93,13 +93,11 @@ for (var j = 0; j < arrayWid; j++) {
   temp = [];
   for (var i = 0; i < arrayHig; i++) {
     var cc = randTeam();
-    var arr = ["black", 0];
+    var arr = ["green", 0];
     temp[i] = arr;
   }
   squareArray[j] = temp;
-}
-	
-squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["green",10];	
+}	
 squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["blue",10];	
 squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["purple",10];	
 squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["red",10];	
@@ -286,10 +284,12 @@ function randRecruit(){
   if(random(1,30) == 1){
 	for(var x = 0; x < arrayWid; x++){
   	for(var y = 0; y < arrayHig; y++){
+		if(squareArray[x][y][1] != "green"){
   		var population = pop[x][y];
       var recruited = random(0,population);
       squareArray[x][y][1] += recruited;
       pop[x][y] -= recruited;
+		}
   	}
 	}
   }
@@ -321,7 +321,6 @@ var teams = ["green", "blue", "purple", "red"];
 var eliminated = [false, false, false, false];
 var lel = setInterval(function() {
 	randRecruit();
-  makeOrders("green");
   makeOrders("blue");
   makeOrders("purple");
   makeOrders("red");
