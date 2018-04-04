@@ -319,14 +319,19 @@ var p3AD = [];
 var p4AD = [];
 var teams = ["green", "blue", "purple", "red"];
 var eliminated = [false, false, false, false];
-setInterval(function() {
+var lel = setInterval(function() {
 	randRecruit();
   makeOrders("green");
   makeOrders("blue");
   makeOrders("purple");
   makeOrders("red");
   var ord = attackOrder();
-  executeOrders(ord);
+  	try{
+		executeOrders(ord);
+	}catch(e){
+		alert(e);
+		clearInterval(lel);
+	}
   renderUnits();
 }, 1);
 </script>
