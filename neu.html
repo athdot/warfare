@@ -93,11 +93,16 @@ for (var j = 0; j < arrayWid; j++) {
   temp = [];
   for (var i = 0; i < arrayHig; i++) {
     var cc = randTeam();
-    var arr = [cc, 10];
+    var arr = ["black", 0];
     temp[i] = arr;
   }
   squareArray[j] = temp;
 }
+	
+squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["green",10];	
+squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["blue",10];	
+squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["purple",10];	
+squareArray[random(0,arrayWid)][random(0,arrayHig)] = ["red",10];	
 
 function attackOrder() {
   var arr = [1, 2, 3, 4];
